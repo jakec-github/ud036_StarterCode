@@ -9,7 +9,7 @@ def get_movies():
 
     all_movie_data = []
 
-    for n in range(0,6):
+    for n in range(0,2):
 
         title_target = movies[n].find("h4", itemprop="name")
         imdb_title = title_target.find("a").get("title")
@@ -20,11 +20,12 @@ def get_movies():
         print (title)
         print (release_date)
         print ("")
-
-        movie_page = "http://www.imdb.com" + movies[n].find("a").get("href")
+        homepage = "http://www.imdb.com"
+        movie_page = homepage + movies[n].find("a").get("href")
         page = urllib.request.urlopen(movie_page).read()
         soup = bs.BeautifulSoup(page, "lxml")
-        poster_page = "http://www.imdb.com" + soup.find("div", class_="poster").find("a").get("href")
+        relative_link = soup.find("div", class_="poster").find("a").get("href")
+        poster_page = homepage + relative_link
         page = urllib.request.urlopen(poster_page).read()
         poster_id = poster_page.split("/")[6].split("?")[0]
         page = page.decode().split(poster_id)[1]
@@ -37,11 +38,13 @@ def get_movies():
                 search_title += word
             else:
                 search_title += "+" + word
-        youtube_search = "https://www.youtube.com/results?search_query=" + search_title + "+trailer+1"
-        #The read was missing on the next line and things didn't appear to be broken
+        base_url = "https://www.youtube.com/results?search_query="
+        youtube_search = base_url + search_title + "+trailer+1"
         page = urllib.request.urlopen(youtube_search).read()
         soup = bs.BeautifulSoup(page, "lxml")
-        trailer_youtube_url = "https://www.youtube.com" + soup.find("div", class_="yt-lockup-content").find("a", class_="yt-uix-tile-link").get("href")
+        video_target = soup.find("div", class_="yt-lockup-content")
+        video = video_target.find("a", class_="yt-uix-tile-link").get("href")
+        trailer_youtube_url = "https://www.youtube.com" + video
 
         movie_data = {
             "title": title,

@@ -16,7 +16,17 @@ To run Fresh Tomatoes run the run.py module using python 3 eg:
 
 `python3 run.py`
 
+Before running the program please check the requirements section.
+
 Progress will be printed to the console.
+
+## Requirements
+
+This program requires the python module [BeautifulSoup 4](https://www.crummy.com/software/BeautifulSoup/). This module is used to scrape data from imdb.com This can be installed using pip.
+
+`pip install beautifulsoup4`
+or
+`pip3 install beautifulsoup4`
 
 ## Issues
 

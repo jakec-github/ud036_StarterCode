@@ -14,7 +14,7 @@ def get_movies():
     all_movie_data = []
     # Loops through movies on the page starting at the top.
     # Number of movies can be adjusted by adjusting range. 15 movies max
-    for n in range(0,4):
+    for n in range(0,6):
         # Retrieves title, release date and the synopsis
         title_target = movies[n].find("h4", itemprop="name")
         imdb_title = title_target.find("a").get("title")

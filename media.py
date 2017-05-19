@@ -1,4 +1,4 @@
-import webbrowser
+
 
 # Class used to create movies
 class Movie:

@@ -4,6 +4,7 @@ import re
 
 
 # Styles and scripting for the page
+# html has been altered to add some extra styles
 main_page_head = '''
 <!DOCTYPE html>
 <html lang="en">

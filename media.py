@@ -1,6 +1,6 @@
 import webbrowser
 
-
+# Class used to create movies
 class Movie:
 
     def __init__(self, title, trailer, synopsis, poster):

@@ -1,16 +1,21 @@
 import bs4 as bs
 import urllib.request
 
+# Takes the top movies from imdb.com/movies-in-theaters and collects their data
+# returns a list of dictionaries with the following keys:
+# "title", "release_date", "synopsis", "poster_link", "trailer_youtube_url"
 def get_movies():
+    # Locates movie information on webpage
     start = "http://www.imdb.com/movies-in-theaters"
     page = urllib.request.urlopen(start).read()
     soup = bs.BeautifulSoup(page, "lxml")
     movies = soup.find_all("div", class_="list_item")
 
     all_movie_data = []
-
-    for n in range(0,2):
-
+    # Loops through movies on the page starting at the top.
+    # Number of movies can be adjusted by adjusting range. 15 movies max
+    for n in range(0,4):
+        # Retrieves title, release date and the synopsis
         title_target = movies[n].find("h4", itemprop="name")
         imdb_title = title_target.find("a").get("title")
         title = imdb_title.split("(")[0]
@@ -20,6 +25,8 @@ def get_movies():
         print (title)
         print (release_date)
         print ("")
+
+        # Retrieves poster
         homepage = "http://www.imdb.com"
         movie_page = homepage + movies[n].find("a").get("href")
         page = urllib.request.urlopen(movie_page).read()
@@ -31,6 +38,7 @@ def get_movies():
         page = page.decode().split(poster_id)[1]
         poster_link = page[0:300].split('"')[6]
 
+        # Retrieves trailer url
         imdb_title_split = imdb_title.split(" ")
         search_title = ""
         for word in imdb_title_split:
